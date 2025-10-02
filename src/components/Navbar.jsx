@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { navLinks } from '../constants';
+import { navLinks } from '../constants/Index.jsx';
 import { FiMenu, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
