@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { experiences } from '../constants/index';
+import { experiences } from '../constants/Index';
 
 const Experience = () => {
   const [selectedJob, setSelectedJob] = useState(experiences[0]);
