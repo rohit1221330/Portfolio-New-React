@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { skills } from '../constants/index';
+import { skills } from '../constants/Index';
 import SkillCard from '../components/SkillCard';
 import { FaCalendarAlt, FaCode } from 'react-icons/fa';
 import CountUp from 'react-countup';

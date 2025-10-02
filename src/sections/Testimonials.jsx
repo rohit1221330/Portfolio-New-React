@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { testimonials } from '../constants';
+import { testimonials } from '../constants/Index';
 
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay, Navigation } from 'swiper/modules';

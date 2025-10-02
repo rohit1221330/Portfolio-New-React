@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projects } from '../constants/index';
+import { projects } from '../constants/Index';
 import ProjectCard from '../components/ProjectCard';
 
 const projectCategories = ['All', 'Full Stack', 'Frontend']; // Define your categories

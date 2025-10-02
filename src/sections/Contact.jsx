@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { contactInfo } from '../constants/index';
+import { contactInfo } from '../constants/Index';
 import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 
 const Contact = () => {
