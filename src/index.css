@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb; /* Light background color */
+}
+
+/* src/index.css */
+
+/* Custom Swiper Pagination Styles */
+.swiper-pagination-bullet {
+  background-color: #a8a29e !important; /* A neutral gray color */
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #9333ea !important; /* Your theme's purple color */
+}
+
+/* src/index.css */
+
+/* Custom Swiper Navigation Arrow Styles */
+.testimonial-swiper-button {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.testimonial-swiper-button:hover {
+  background-color: #9333ea;
+  color: white;
+}
+
+/* Styles for dark mode */
+.dark .testimonial-swiper-button {
+  background-color: rgba(147, 51, 234, 0.2);
+  border-color: rgba(147, 51, 234, 0.5);
+  color: #d1d5db;
+}
+
+.dark .testimonial-swiper-button:hover {
+  background-color: #9333ea;
+  color: white;
+}
+
+.swiper-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.gooey-container {
+  filter: url('#gooey');
+}
