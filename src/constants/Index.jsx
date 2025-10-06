@@ -23,20 +23,20 @@ export const projects = [
     category: 'Full Stack',
   },
   {
+    title: "Task Management System",
+    description: "A full-stack task management application featuring secure user authentication, a dynamic dashboard with data visualization charts to track productivity, and automated task reminders.",
+    tags: ["React", "JavaScript", "TailwindCSS", "Django"],
+    image: "/projects/to-do.png",
+    link: "https://smart-todo-react.vercel.app/",
+    category: 'Full Stack',
+  },
+  {
     title: "Portfolio Website",
     description: "A personal portfolio showcasing my projects, skills, and experience with a modern and interactive UI design.",
     tags: ["Html", "CSS", "JavaScript"],
     image: "/projects/Portfolio.png",
     link: "https://rohit-dhyani-portfolio.netlify.app/",
     category: 'Frontend',
-  },
-  {
-    title: "To-Do App",
-    description: "A responsive To-Do list application with task management, local storage integration, and a clean modern UI.",
-    tags: ["React", "JavaScript", "TailwindCSS", "Django"],
-    image: "/projects/to-do.png",
-    link: "https://smart-todo-react.vercel.app/",
-    category: 'Full Stack',
   },
   {
     title: "Automated Resume Relevance Check System",
@@ -54,14 +54,7 @@ export const projects = [
     link: "https://github.com/rohit1221330/Employee-Management-System",
     category: 'Frontend',
   },
-  {
-    title: "Basic Reusable Component",
-    description: "A collection of modular and reusable React components built with TailwindCSS for faster UI development.",
-    tags: ["React", "TailwindCSS"],
-    image: "/projects/Reusable.png",
-    link: "https://github.com/rohit1221330/Reasuable-Component-Assignment",
-    category: 'Frontend',
-  },
+ 
 ];
 
 
