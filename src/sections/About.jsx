@@ -71,8 +71,8 @@ const About = () => {
             </p>
             
             <div className="flex flex-col gap-8 sm:flex-row">
-              <AnimatedStat icon={<FaCalendarAlt className="text-4xl text-purple-500" />} end={2} suffix="+" label="Years of Experience" />
-              <AnimatedStat icon={<FaCode className="text-4xl text-purple-500" />} end={15} suffix="+" label="Projects Completed" />
+              <AnimatedStat icon={<FaCalendarAlt className="text-4xl text-purple-500" />} end={1} suffix="+" label="Years of Experience" />
+              <AnimatedStat icon={<FaCode className="text-4xl text-purple-500" />} end={8} suffix="+" label="Projects Completed" />
             </div>
           </motion.div>
 

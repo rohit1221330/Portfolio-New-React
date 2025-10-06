@@ -19,7 +19,7 @@ export const projects = [
     description: "An advanced full-stack business website for a prefab manufacturing company, featuring enquiry forms, JWT login, admin management, and a dynamic product catalog.",
     tags: ["React", "Django", "PostgreSQL", "TailwindCSS"],
     image: "/projects/JPS.png",
-    link: "https://janki-prefab.com",
+    link: "https://youtu.be/TymHFBSLIME",
     category: 'Full Stack',
   },
   {
@@ -43,7 +43,7 @@ export const projects = [
     description: "A machine learning-based application that evaluates resumes against job descriptions, providing automated and consistent relevance scoring.",
     tags: ["Streamlit", "Python"],
     image: "/projects/Automated.png",
-    link: "https://github.com/rohit1221330/Automated-Resume-Relevance-Check-System",
+    link: "https://youtu.be/UxRXtkNF4JM",
     category: 'Full Stack',
   },
   {
