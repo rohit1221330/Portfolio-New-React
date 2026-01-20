@@ -3,14 +3,46 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { contactInfo } from '../constants/Index';
-import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle, FiAlertCircle, FiLoader, FiMessageSquare } from 'react-icons/fi';
+
+const contactInfo = [
+  {
+    id: "email",
+    title: "Mail Me",
+    detail: "rohitdhyani50@gmail.com", // APNA EMAIL UPDATE KAREIN
+    icon: <FiMail />,
+    link: "mailto:your-email@example.com",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
+    border: "group-hover:border-blue-500/50"
+  },
+  {
+    id: "whatsapp",
+    title: "Message Me",
+    detail: "WhatsApp / Telegram",
+    icon: <FiMessageSquare />,
+    link: "https://wa.me/919971770689",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
+    border: "group-hover:border-green-500/50"
+  },
+  {
+    id: "loc",
+    title: "Location",
+    detail: "New Delhi, India",
+    icon: <FiMapPin />,
+    link: "#",
+    color: "text-purple-400",
+    bg: "bg-purple-500/10",
+    border: "group-hover:border-purple-500/50"
+  }
+];
 
 const Contact = () => {
   const formRef = useRef();
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState({ type: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState({ type: null, message: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,71 +77,161 @@ const Contact = () => {
       setTimeout(() => setStatus({ type: '', message: '' }), 5000);
     });
   };
-
   return (
-    <section id="contact" className="relative py-20 overflow-hidden bg-gray-100 dark:bg-black">
-      {/* Decorative background element */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-20 dark:opacity-30">
-        <div className="absolute rounded-full top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 blur-3xl animate-blob"></div>
-        <div className="absolute rounded-full bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/20 blur-3xl animate-blob animation-delay-4000"></div>
-      </div>
-      
-      <div className="relative z-10 px-4 mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="mb-16 text-center"
-        >
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl md:text-5xl dark:text-white">Get In Touch</h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">Have a project in mind? Let's connect.</p>
-          <div className="w-24 h-1 mx-auto mt-4 bg-purple-500 rounded"></div>
-        </motion.div>
+    <section id="contact" className="relative py-20 overflow-hidden font-sans bg-black md:py-24">
 
-        <div className="grid items-start grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-cyan-900/10 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl px-5 mx-auto sm:px-6">
+
+        {/* HEADER */}
+        <div className="mb-16 text-center md:mb-20">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: "easeOut", staggerChildren: 0.2 }}
-            className="flex flex-col gap-6"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center gap-3 mb-4"
           >
-            {contactInfo.map((info) => (
-              <motion.div 
-                key={info.title} 
-                variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
-                className="flex items-center p-6 border border-gray-200 shadow-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-xl dark:border-white/10"
-              >
-                <div className="p-4 bg-purple-100 rounded-full dark:bg-purple-900/50"><span className="text-2xl text-purple-600 dark:text-purple-400">{info.icon}</span></div>
-                <div className="ml-5">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{info.title}</h3>
-                  <a href={info.title === 'Email' ? `mailto:${info.detail}` : (info.title === 'Phone' ? `tel:${info.detail}` : '#')} className="text-gray-600 break-all dark:text-gray-400 hover:text-purple-500">{info.detail}</a>
-                </div>
-              </motion.div>
-            ))}
+            <span className="w-8 h-[2px] bg-purple-600"></span>
+            <span className="text-purple-400 text-xs font-bold tracking-[0.25em] uppercase">
+              Contact
+            </span>
+            <span className="w-8 h-[2px] bg-purple-600"></span>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-3xl font-bold leading-tight text-white md:text-5xl"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 border border-gray-200 shadow-lg bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm rounded-2xl dark:border-white/10">
-              <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Your Name" required className="p-4 transition-all bg-gray-100 border-2 border-transparent rounded-lg outline-none dark:bg-gray-800 placeholder:text-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" />
-              <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="Your Email" required className="p-4 transition-all bg-gray-100 border-2 border-transparent rounded-lg outline-none dark:bg-gray-800 placeholder:text-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" />
-              <input type="text" name="subject" value={form.subject} onChange={handleChange} placeholder="Subject" required className="p-4 transition-all bg-gray-100 border-2 border-transparent rounded-lg outline-none dark:bg-gray-800 placeholder:text-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" />
-              <textarea rows="5" name="message" value={form.message} onChange={handleChange} placeholder="Your Message" required className="p-4 transition-all bg-gray-100 border-2 border-transparent rounded-lg outline-none resize-none dark:bg-gray-800 placeholder:text-gray-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500" />
-              
+            Let’s Start a <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-cyan-200">
+              Conversation
+            </span>
+          </motion.h2>
+        </div>
+
+
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
+
+          {/* LEFT: INFO & HIGHLIGHTED TEXT */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col justify-center gap-8"
+          >
+            <div>
+              <h3 className="mb-4 text-2xl font-bold text-white">
+                Got a project? <span className="text-purple-400">Let's talk.</span>
+              </h3>
+              <p className="max-w-md text-base leading-relaxed text-gray-400">
+                Whether you have a <span className="font-medium text-white">clear vision</span> or just a <span className="font-medium text-white">rough idea</span>, I’m here to help you refine it and bring it to life.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {contactInfo.map((info) => (
+                <a
+                  key={info.id}
+                  href={info.link}
+                  className={`group flex items-center gap-4 p-4 transition-all duration-300 border border-white/5 rounded-2xl bg-[#0a0a0a] hover:bg-white/5 ${info.border}`}
+                >
+                  <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${info.bg} ${info.color} text-xl group-hover:scale-110 transition-transform`}>
+                    {info.icon}
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">{info.title}</p>
+                    <p className="text-sm font-bold text-white transition-colors md:text-base group-hover:text-purple-300">{info.detail}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+
+          {/* RIGHT: FORM */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="flex  flex-col gap-5 p-6 md:p-8 rounded-3xl bg-[#0a0a0a] border border-white/10 shadow-2xl"
+            >
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                <div className="space-y-2">
+                  <label className="ml-1 text-xs font-bold tracking-widest text-gray-500 uppercase">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="John Doe"
+                    required
+                    className="w-full px-4 py-3 text-white transition-all border outline-none bg-white/5 border-white/10 rounded-xl focus:border-purple-500 focus:bg-white/10 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)] placeholder:text-gray-600"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="ml-1 text-xs font-bold tracking-widest text-gray-500 uppercase">Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    required
+                    className="w-full px-4 py-3 text-white transition-all border outline-none bg-white/5 border-white/10 rounded-xl focus:border-purple-500 focus:bg-white/10 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)] placeholder:text-gray-600"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="ml-1 text-xs font-bold tracking-widest text-gray-500 uppercase">Subject</label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  placeholder="Project Inquiry"
+                  className="w-full px-4 py-3 text-white transition-all border outline-none bg-white/5 border-white/10 rounded-xl focus:border-purple-500 focus:bg-white/10 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)] placeholder:text-gray-600"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="ml-1 text-xs font-bold tracking-widest text-gray-500 uppercase">Message</label>
+                <textarea
+                  rows="4"
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project..."
+                  required
+                  className="w-full px-4 py-3 text-white transition-all border outline-none resize-none bg-white/5 border-white/10 rounded-xl focus:border-purple-500 focus:bg-white/10 focus:shadow-[0_0_15px_rgba(168,85,247,0.1)] placeholder:text-gray-600"
+                />
+              </div>
+
+              {/* Status Message */}
               <AnimatePresence>
                 {status.message && (
                   <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className={`flex items-center gap-3 p-3 rounded-lg ${
-                      status.type === 'success' ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'
-                    }`}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-xl ${status.type === 'success'
+                        ? 'bg-green-500/10 text-green-400 border border-green-500/20'
+                        : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                      }`}
                   >
                     {status.type === 'success' ? <FiCheckCircle /> : <FiAlertCircle />}
                     {status.message}
@@ -117,11 +239,21 @@ const Contact = () => {
                 )}
               </AnimatePresence>
 
-              <button type="submit" disabled={loading} className="px-8 py-3 font-bold text-white transition-all duration-300 bg-purple-600 border-2 border-purple-600 rounded-xl hover:bg-transparent hover:text-purple-500 dark:hover:text-purple-400 disabled:opacity-50 disabled:cursor-not-allowed">
-                {loading ? 'Sending...' : 'Send Message'}
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex items-center justify-center w-full gap-2 py-4 mt-2 text-sm font-bold text-black transition-all bg-white rounded-xl hover:bg-gray-200 disabled:opacity-70 disabled:cursor-not-allowed group shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)]"
+              >
+                {loading ? (
+                  <>Sending <FiLoader className="animate-spin" /></>
+                ) : (
+                  <>Discuss Your Project <FiSend className="transition-transform group-hover:translate-x-1" /></>
+                )}
               </button>
+
             </form>
           </motion.div>
+
         </div>
       </div>
     </section>

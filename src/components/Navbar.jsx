@@ -1,141 +1,208 @@
 // src/components/Navbar.jsx
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { navLinks } from '../constants/Index';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { navLinks } from '../constants/Index'; // Ensure path is correct
+import { FiArrowRight, FiMenu, FiX } from 'react-icons/fi';
 
 const Navbar = () => {
   const [active, setActive] = useState('Home');
   const [scrolled, setScrolled] = useState(false);
-  const [bubble, setBubble] = useState({ left: 0, width: 0, opacity: 0 });
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const navRef = useRef(null);
-  const linkRefs = useRef([]);
-
-  // Handle scroll effects for navbar background and active link
+  // --- SCROLL & ACTIVE SECTION LOGIC ---
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      let currentSection = 'Home';
+      // Detect Active Section
+      let current = 'Home';
       navLinks.forEach((link) => {
         const section = document.getElementById(link.id);
-        if (section && window.scrollY >= section.offsetTop - 150) {
-          currentSection = link.title;
+        if (section) {
+          const sectionTop = section.offsetTop - 300;
+          if (window.scrollY >= sectionTop) {
+            current = link.title;
+          }
         }
       });
-      setActive(currentSection);
+      setActive(current);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Set initial active state
+
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Update bubble position when active link changes or on resize
+  // --- LOCK SCROLL WHEN MENU IS OPEN ---
   useEffect(() => {
-    const updateBubble = () => {
-      const activeLinkIndex = navLinks.findIndex(link => link.title === active);
-      const activeLinkNode = linkRefs.current[activeLinkIndex];
-      if (activeLinkNode && navRef.current) {
-        const navRect = navRef.current.getBoundingClientRect();
-        const targetRect = activeLinkNode.getBoundingClientRect();
-        setBubble({
-          left: targetRect.left - navRect.left,
-          width: targetRect.width,
-          opacity: 1,
-        });
-      }
-    };
-    updateBubble(); // Update on active change
-    window.addEventListener('resize', updateBubble); // Update on resize
-    return () => window.removeEventListener('resize', updateBubble);
-  }, [active]);
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'unset';
+  }, [isMenuOpen]);
 
-  const handleMouseEnter = (e) => {
-    const targetRect = e.currentTarget.getBoundingClientRect();
-    const navRect = navRef.current.getBoundingClientRect();
-    setBubble({
-      left: targetRect.left - navRect.left,
-      width: targetRect.width,
-      opacity: 1,
-    });
-  };
-
-  const handleMouseLeave = () => {
-    // Revert to the active link's position
-    const activeLinkIndex = navLinks.findIndex(link => link.title === active);
-    const activeLinkNode = linkRefs.current[activeLinkIndex];
-    if (activeLinkNode && navRef.current) {
-      const navRect = navRef.current.getBoundingClientRect();
-      const targetRect = activeLinkNode.getBoundingClientRect();
-      setBubble({
-        left: targetRect.left - navRect.left,
-        width: targetRect.width,
-        opacity: 1,
+  // --- SMOOTH SCROLL HANDLER ---
+  const handleNavClick = (id) => {
+    setIsMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      window.scrollTo({
+        top: element.offsetTop - 100,
+        behavior: 'smooth',
       });
     }
   };
 
   return (
     <>
+      {/* ==========================================================
+          THE FLOATING CAPSULE NAVBAR
+      ========================================================== */}
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-        className={`fixed top-0 z-50 flex items-center justify-center w-full transition-all duration-300 ${scrolled ? 'mt-0' : 'mt-4 sm:mt-8'}`}
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed z-50 top-0  transition-all duration-500 items-center ease-in-out ${scrolled
+            ? 'top-2 w-[100%]  items-center rounded-full'
+            : 'top-0 w-full rounded-none items-center py-6  border-transparent'
+          }`}
       >
-        <div className="relative flex items-center justify-between gap-32 p-2 mx-4 border rounded-full shadow-lg bg-white/5 dark:bg-black/10 backdrop-blur-xl border-white/10">
-          <a href="#" className="pl-4 pr-2 text-2xl font-bold text-gray-900 dark:text-white" onClick={() => window.scrollTo(0, 0)}>RD</a>
-          
-          <ul ref={navRef} className="relative items-center hidden gap-2 sm:flex" onMouseLeave={handleMouseLeave}>
-            {navLinks.map((link, index) => (
-              <li
-                key={link.id}
-                ref={el => (linkRefs.current[index] = el)}
-                className={`relative px-4 py-2 text-lg font-medium transition-colors cursor-pointer ${active === link.title ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}`}
-                onMouseEnter={handleMouseEnter}
-                onClick={() => setActive(link.title)}
-              >
-                <a href={`#${link.id}`}>{link.title}</a>
-              </li>
-            ))}
-            <motion.div
-              className="absolute h-full rounded-full bg-white/80 dark:bg-white/10"
-              style={{ zIndex: -1 }}
-              animate={bubble}
-              // THIS IS THE ONLY LINE THAT CHANGED
-              transition={{ type: "tween", ease: "easeOut", duration: 0.4 }}
-            />
-          </ul>
 
-          {/* Hamburger Menu Button */}
-          <div className="pr-2 sm:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-900 dark:text-white">
-              {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </button>
+        <div
+          className={`relative flex items-center justify-between px-6 transition-all duration-500 ${scrolled
+              ? 'bg-black/60 backdrop-blur-xl border border-white/10 rounded-full py-3 pr-3 pl-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)]'
+              : 'bg-transparent py-2 max-w-7xl mx-auto'
+            }`}
+        >
+          {/* --- LOGO --- */}
+          <a
+            href="#"
+            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className="flex items-center gap-3 group"
+          >
+            <div className="relative w-8 h-8 overflow-hidden transition-colors border rounded-full border-white/20 group-hover:border-purple-500">
+              {/* Placeholder for Logo Image */}
+              <div className="w-full h-full bg-gradient-to-br from-gray-800 to-black flex items-center justify-center text-[10px] font-bold text-white">
+                RD
+              </div>
+              {/* Agar image use karni ho toh niche wala uncomment karein */}
+              {/* <img src="/Rohit.png" alt="Logo" className="object-cover w-full h-full" /> */}
+            </div>
+            <span className="text-sm font-bold tracking-wider text-white uppercase transition-colors group-hover:text-purple-400">
+              Rohit<span className="hidden md:inline"> Dhyani</span>
+            </span>
+          </a>
+
+          {/* --- ACTION BUTTONS --- */}
+          <div className="flex items-center gap-4">
+
+            {/* CTA Button (Hidden on very small screens to save space) */}
+            <a
+              href="#contact"
+              className={`hidden md:flex items-center gap-2 px-5 py-2 text-xs font-bold tracking-widest text-black uppercase transition-all bg-white rounded-full hover:bg-purple-400 hover:text-white ${scrolled ? 'h-10' : ''}`}
+            >
+              Let's Talk
+            </a>
+
+            {/* MENU TOGGLE (Magnetic Feel) */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsMenuOpen(true)}
+              className={`flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all group ${scrolled ? 'bg-black/50' : ''}`}
+            >
+              <div className="flex flex-col gap-[5px] group-hover:gap-[4px] items-end transition-all">
+                <span className="w-5 h-[2px] bg-current group-hover:w-5 transition-all"></span>
+                <span className="w-3 h-[2px] bg-current group-hover:w-5 transition-all"></span>
+              </div>
+            </motion.button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
+
+      {/* ==========================================================
+          FULL SCREEN CINEMATIC MENU OVERLAY
+      ========================================================== */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: "-100%" }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 flex items-center justify-center bg-white/80 dark:bg-black/80 backdrop-blur-xl sm:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed inset-0 z-[60] bg-[#050505] flex flex-col justify-center items-center overflow-hidden"
           >
-            <ul className="flex flex-col items-center gap-8">
-              {navLinks.map((link) => (
-                <li key={link.id} onClick={() => setIsMobileMenuOpen(false)}>
-                  <a href={`#${link.id}`} className="text-3xl font-bold text-gray-900 dark:text-white">{link.title}</a>
-                </li>
-              ))}
+            {/* Texture/Noise Overlay for Film Grain Effect */}
+            <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+            {/* Background Blobs */}
+            <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[150px]" />
+            <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-cyan-900/20 rounded-full blur-[150px]" />
+
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="absolute z-50 flex items-center gap-3 transition-colors top-8 right-8 md:top-12 md:right-12 group text-white/50 hover:text-white"
+            >
+              <span className="uppercase text-xs tracking-[0.2em] font-bold hidden md:block">Close</span>
+              <div className="flex items-center justify-center w-12 h-12 transition-all border rounded-full border-white/10 group-hover:bg-white group-hover:text-black">
+                <FiX size={24} />
+              </div>
+            </button>
+
+
+            {/* MENU LINKS */}
+            <ul className="relative z-10 flex flex-col items-center gap-4 md:gap-8">
+              {navLinks.map((link, index) => {
+                const isActive = active === link.title;
+
+                return (
+                  <motion.li
+                    key={link.id}
+                    initial={{ y: 50, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 50, opacity: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <a
+                      href={`#${link.id}`}
+                      onClick={() => handleNavClick(link.id)}
+                      className="relative block text-center group"
+                    >
+                      {/* The Text */}
+                      <span
+                        className={`block text-5xl md:text-8xl font-black uppercase tracking-tighter transition-all duration-500 ${isActive
+                            ? 'text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-cyan-200'
+                            : 'text-white/20 hover:text-white'
+                          }`}
+                      >
+                        {link.title}
+                      </span>
+
+                      {/* Hover Reveal Image/Text (Optional fancy effect) */}
+                      <span className={`absolute -bottom-4 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] font-normal text-purple-400 opacity-0 transition-all duration-300 transform translate-y-2 ${isActive ? 'opacity-100 translate-y-0' : 'group-hover:opacity-100 group-hover:translate-y-0'}`}>
+                        0{index + 1}
+                      </span>
+                    </a>
+                  </motion.li>
+                )
+              })}
             </ul>
+
+            {/* MENU FOOTER */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="absolute left-0 w-full text-center bottom-10"
+            >
+              <div className="flex flex-col items-center gap-2">
+                <p className="text-xs tracking-widest text-gray-500 uppercase">Available for Freelance</p>
+                <a href="mailto:your-email@example.com" className="text-white transition-colors hover:text-purple-400">
+                  your-email@example.com
+                </a>
+              </div>
+            </motion.div>
+
           </motion.div>
         )}
       </AnimatePresence>

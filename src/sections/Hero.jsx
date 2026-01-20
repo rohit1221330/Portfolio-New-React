@@ -1,270 +1,169 @@
-  // // src/sections/Hero.jsx
-
-  // import React from 'react';
-  // import { motion } from 'framer-motion';
-  // import { TypeAnimation } from 'react-type-animation';
-  // import LightRays from '../React-bits/LightRays';
-  // import useWindowSize from '../hooks/useWindowSize';
-
-  // const Hero = () => {
-  //   const { width } = useWindowSize();
-
-  //   // Animation Variants
-  //   const headingContainerVariants = {
-  //     hidden: { opacity: 0 },
-  //     visible: {
-  //       opacity: 1,
-  //       transition: { staggerChildren: 0.08 },
-  //     },
-  //   };
-
-  //   const letterVariants = {
-  //     hidden: { opacity: 0, y: 50, filter: 'blur(10px)' },
-  //     visible: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  //   };
-
-  //   const headingText = "Hi, I'm Rohit Dhyani";
-
-  //   return (
-  //     <section className="relative w-full h-screen mx-auto">
-  //       {/* Background Light Rays */}
-  //       {/* <div className="absolute inset-0 z-0">
-  //         <LightRays
-  //           raysOrigin="top-center"
-  //           raysColor="#9333ea"
-  //           raysSpeed={1.5}
-  //           lightSpread={0.8}
-  //           rayLength={1.2}
-  //           followMouse={true}
-  //           mouseInfluence={0.1}
-  //           noiseAmount={0.1}
-  //           distortion={0.05}
-  //           className="custom-rays"
-  //         />
-  //       </div> */}
-
-  //       {/* Content Wrapper */}
-  //       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-6 text-center lg:flex-row lg:text-left lg:justify-between lg:px-20">
-
-  //         {/* === Left Side: Text === */}
-  //         <div className="flex flex-col items-center lg:items-start">
-  //           <motion.h1
-  //             variants={headingContainerVariants}
-  //             initial="hidden"
-  //             animate="visible"
-  //             className="text-4xl font-black text-white xs:text-5xl sm:text-6xl lg:text-7xl font-poppins"
-  //           >
-  //             {headingText.split("").map((char, index) => (
-  //               <motion.span
-  //                 key={index}
-  //                 variants={letterVariants}
-  //                 className={index >= 8 ? "text-purple-500" : ""}
-  //                 style={{ display: 'inline-block' }}
-  //               >
-  //                 {char === " " ? "\u00A0" : char}
-  //               </motion.span>
-  //             ))}
-  //           </motion.h1>
-
-  //           <motion.p
-  //             initial={{ opacity: 0 }}
-  //             animate={{ opacity: 1 }}
-  //             transition={{ duration: 0.8, delay: 2 }}
-  //             className="max-w-2xl mt-4 text-lg text-gray-600 dark:text-gray-300 sm:text-xl md:text-2xl font-jetbrains"
-  //           >
-  //             I am a{' '}
-  //             <TypeAnimation
-  //               sequence={[
-  //                 'Frontend Developer', 2000,
-  //                 'Full Stack Developer', 2000,
-  //                 'Creative Thinker', 2000,
-  //                 'Problem Solver', 2000,
-  //               ]}
-  //               wrapper="span"
-  //               speed={50}
-  //               className="font-bold text-purple-400"
-  //               repeat={Infinity}
-  //             />
-  //             , creating beautiful <br className="hidden sm:block" /> and functional web experiences.
-  //           </motion.p>
-
-
-  //           {/* Buttons */}
-  //           <motion.div
-  //             initial={{ opacity: 0, scale: 0.5 }}
-  //             animate={{ opacity: 1, scale: 1 }}
-  //             transition={{ duration: 0.5, delay: 3.5 }}
-  //             className="flex flex-col justify-center gap-4 mt-8 sm:flex-row"
-  //           >
-  //             <a
-  //               href="#contact"
-  //               className="px-8 py-3 font-semibold text-white transition-colors duration-300 bg-purple-600 rounded-xl hover:bg-purple-700"
-  //             >
-  //               Hire Me
-  //             </a>
-  //             <a
-  //               href="/assets/Resume.pdf"
-  //               download
-  //               className="px-8 py-3 font-semibold text-purple-600 transition-colors duration-300 border border-purple-600 dark:text-white rounded-xl hover:bg-purple-600 hover:text-white"
-  //             >
-  //               Download Resume
-  //             </a>
-  //           </motion.div>
-  //         </div>
-
-  //         {/* === Right Side: Profile Image === */}
-  //         <motion.div
-  //           initial={{ opacity: 0, scale: 0.8, y: 50 }}
-  //           animate={{ opacity: 1, scale: 1, y: 0 }}
-  //           transition={{ duration: 1, delay: 2 }}
-  //           className="flex justify-center mt-10 lg:mt-0 lg:ml-12"
-  //         >
-  //           <div className="relative w-56 h-56 overflow-hidden border-4 border-purple-500 rounded-full shadow-lg sm:w-72 sm:h-72 lg:w-96 lg:h-96">
-  //             <img
-  //               src="/public/profile-pic.png" // <-- apni image ka path yaha dalna
-  //               alt="Rohit Dhyani"
-  //               className="object-cover w-full h-full"
-  //             />
-  //             {/* Glow Effect */}
-  //             <div className="absolute inset-0 rounded-full bg-purple-500/20 blur-3xl"></div>
-  //           </div>
-  //         </motion.div>
-  //       </div>
-  //     </section>
-  //   );
-  // };
-
-  // export default Hero;
-
-
-  // src/sections/Hero.jsx
-
 // src/sections/Hero.jsx
 
 import React from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
 import { TypeAnimation } from "react-type-animation";
 
 const Hero = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY, currentTarget } = e;
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left - width / 2);
-    mouseY.set(clientY - top - height / 2);
-  };
-  
-  // Parallax transformations for background elements ONLY
-  const blobX = useTransform(mouseX, (v) => v / -15);
-  const blobY = useTransform(mouseY, (v) => v / -15);
-
   return (
-    <section 
-      onMouseMove={handleMouseMove}
-      className="relative flex items-center justify-center min-h-screen w-full overflow-hidden bg-[#000000] font-sans"
-    >
-      {/* Layered dynamic backgrounds with parallax */}
-      <motion.div style={{ x: blobX, y: blobY }} className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#232038] via-[#171928] to-[#25212f] opacity-90" />
-        <motion.div 
-          className="absolute left-10 top-1/3 w-[340px] h-[340px] rounded-full bg-gradient-to-br from-fuchsia-600/20 via-indigo-500/30 to-transparent blur-[120px] opacity-60"
-          animate={{ x: [0, 50, 0], y: [0, -50, 0] }}
-          transition={{ duration: 20, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-        />
-        <motion.div 
-          className="absolute right-0 bottom-10 w-64 h-64 rounded-full bg-gradient-to-tl from-purple-800/50 to-transparent blur-[120px] opacity-40"
-          animate={{ x: [0, -40, 0], y: [0, 60, 0] }}
-          transition={{ duration: 25, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-        />
-      </motion.div>
+    <section className="relative flex flex-col items-center justify-center w-full min-h-screen pt-32 pb-20 overflow-hidden font-sans bg-[#050508]">
 
-      <div className="relative z-10 flex flex-col-reverse items-center justify-between w-full max-w-6xl px-6 md:flex-row gap-14 sm:px-10">
+      {/* ====================================================
+          BACKGROUND ATMOSPHERE (Enhanced)
+      ==================================================== */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         
-        {/* Left :: Content (Now Static) */}
-        <div className="flex flex-col items-center flex-1 gap-3 text-center md:items-start md:text-left">
-          <motion.span
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-            className="px-3 py-1 mb-2 text-xs font-bold tracking-widest uppercase text-[#a855f7] bg-fuchsia-900/20 rounded-2xl"
-          >
-            Frontend & Creative Development
-          </motion.span>
+        {/* 1. Noise Texture Overlay (For tactile feel) */}
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay"></div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl font-extrabold leading-tight text-white sm:text-5xl lg:text-6xl drop-shadow-xl"
-          >
-            Hi, I'm <span className="text-[#a855f7]">Rohit Dhyani</span>
-          </motion.h1>
+        {/* 2. Enhanced Subtle Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px] opacity-20" />
 
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-            className="flex items-center gap-2 mt-2 text-lg font-semibold sm:text-2xl"
-          >
-            <span className="text-gray-300">I craft</span>
-            <TypeAnimation
-              sequence={[
-                "digital solutions.", 2100,
-                "innovative UI/UX.", 2100,
-                "scalable applications.", 2100,
-              ]}
-              wrapper="span"
-              speed={44}
-              className="text-[#a855f7]"
-              repeat={Infinity}
+        {/* 3. Existing Purple Glow (Bottom Left) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 0.5, scale: 1 }}
+          transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+          className="absolute -bottom-[20%] -left-[10%] w-[600px] h-[600px] bg-purple-900/30 rounded-full blur-[120px]"
+        />
+
+        {/* 4. Existing Cyan Glow (Top Right) */}
+        <motion.div
+           initial={{ opacity: 0.3 }}
+           animate={{ opacity: 0.6, scale: [1, 1.1, 1] }}
+           transition={{ duration: 7, repeat: Infinity, repeatType: "reverse" }}
+           className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-cyan-900/20 rounded-full blur-[100px]"
+        />
+
+        {/* --- NEW ADDITIONS FOR DEPTH --- */}
+
+        {/* 5. Floating Abstract Geometrics (Slow rotating outlines) */}
+        <motion.div
+          initial={{ rotate: 0, opacity: 0 }}
+          animate={{ rotate: 360, opacity: 0.1 }}
+          transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 left-1/3 w-[800px] h-[800px] border-[1px] border-cyan-500/30 rounded-[30%] blur-[1px]"
+        />
+        <motion.div
+          initial={{ rotate: 0, opacity: 0 }}
+          animate={{ rotate: -360, opacity: 0.08 }}
+          transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 right-1/3 w-[600px] h-[600px] border-[1px] border-purple-500/30 rounded-full blur-[1px]"
+        />
+
+        {/* 6. Subtle Rising Particles */}
+        {[...Array(5)].map((_, i) => (
+            <motion.div
+                key={i}
+                className="absolute w-1 h-1 rounded-full bg-white/20"
+                initial={{ y: "100vh", x: Math.random() * window.innerWidth, opacity: 0 }}
+                animate={{ 
+                    y: "-10vh", 
+                    opacity: [0, 0.5, 0],
+                    scale: [0.5, 1.5, 0.5]
+                }}
+                transition={{ 
+                    duration: Math.random() * 10 + 20, 
+                    repeat: Infinity, 
+                    delay: Math.random() * 5,
+                    ease: "linear"
+                }}
             />
-          </motion.div>
+        ))}
 
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.7, ease: "easeOut" }}
-            className="max-w-xl mt-5 mb-8 text-base font-medium text-gray-400 sm:text-lg"
-          >
-            Bringing practical design and robust engineering together to deliver impactful, future-ready products and user experiences.
-          </motion.p>
-
-          {/* === Buttons Restored === */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, ease: "easeOut" }}
-            className="flex gap-5"
-          >
-            <a href="#contact" className="py-3 text-base font-bold text-white transition-all rounded-full shadow-lg px-7 bg-gradient-to-r from-fuchsia-600 to-indigo-600 hover:shadow-fuchsia-500/50 hover:scale-105">
-              Hire Me
-            </a>
-            <a href="/assets/Resume.pdf" download className="py-3 font-semibold transition-all border rounded-full px-7 text-[#a855f7] bg-white/5 border-fuchsia-600/50 hover:bg-fuchsia-600/10">
-              Download CV
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Right :: Image (Now Static) */}
-        <div className="flex justify-center flex-1 md:justify-end">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.7, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative group"
-          >
-            <div className="absolute transition-all scale-100 rounded-full pointer-events-none opacity-55 -inset-8 bg-gradient-to-tr from-fuchsia-600/40 to-indigo-500/20 blur-3xl group-hover:scale-110" />
-            <div className="absolute inset-0 rounded-full pointer-events-none ring-2 ring-fuchsia-400/30 animate-pulse" />
-            <img
-              src="/profile-pic.png"
-              alt="Rohit Dhyani"
-              className="object-cover w-56 h-56 border-2 rounded-full shadow-2xl sm:w-[20rem] sm:h-[20rem] border-[#a855f7]"
-            />
-          </motion.div>
-        </div>
       </div>
+
+      {/* ====================================================
+          MAIN CONTENT (Same as before)
+      ==================================================== */}
+      <div className="container relative z-10 flex flex-col items-center px-6 mx-auto text-center">
+
+        {/* 1. TOP BADGE */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-2 px-5 py-2 mb-8 border rounded-full border-white/10 bg-white/5 backdrop-blur-md"
+        >
+          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+          <span className="text-xs font-medium tracking-wide text-gray-300 uppercase">
+            Available for New Projects
+          </span>
+        </motion.div>
+
+        {/* 2. HERO HEADLINE WITH SMOOTH TYPING */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col items-center max-w-5xl"
+        >
+          <h1 className="text-3xl font-bold leading-tight tracking-tighter text-white sm:text-5xl md:text-6xl">
+            Conversion-Focused Websites for
+          </h1>
+          <div className="mt-2 text-3xl font-bold leading-tight tracking-tighter text-white sm:text-5xl md:text-6xl sm:mt-4 h-[40px] sm:h-[60px] flex items-center justify-center">
+             <TypeAnimation
+                sequence={[
+                  1000,
+                  'Realtors & Agencies', 
+                  2000,
+                  'Service Businesses',
+                  3000,
+                ]}
+                wrapper="span"
+                speed={50}
+                deletionSpeed={70}
+                cursor={true}
+                repeat={Infinity}
+                className="font-serif italic font-medium text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-white to-purple-300"
+              />
+          </div>
+        </motion.div>
+
+        {/* 3. SUBTEXT */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.2 }}
+          className="mt-8"
+        >
+          <p className="max-w-xl mx-auto text-sm leading-relaxed text-gray-300 sm:text-lg">
+            I design and build fast, mobile-first websites that turn visitors into real leads — not just good-looking pages.
+          </p>
+          <p className="max-w-xl mx-auto mt-3 text-sm leading-relaxed text-gray-500">
+            Frontend-first development with essential backend integrations — forms, email alerts & WhatsApp lead notifications.
+          </p>
+        </motion.div>
+
+        {/* 4. BUTTONS */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 2.5 }}
+          className="flex flex-col items-center gap-4 mt-10 sm:flex-row"
+        >
+          <a
+            href="#projects"
+            className="group relative px-7 py-3.5 rounded-full bg-white text-black font-bold text-base hover:bg-gray-200 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)] flex items-center gap-2"
+          >
+            View Work
+            <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="#contact"
+            className="px-7 py-3.5 rounded-full border border-white/15 text-gray-200 font-medium hover:bg-white/10 hover:border-white/30 transition-all backdrop-blur-sm flex items-center gap-2"
+          >
+            Get a Free Website Review
+            <FiArrowRight />
+          </a>
+        </motion.div>
+
+      </div>
+
+      {/* Bottom fade overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-32 pointer-events-none bg-gradient-to-t from-[#050508] to-transparent" />
+
     </section>
   );
 };

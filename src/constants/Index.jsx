@@ -15,47 +15,82 @@ export const navLinks = [
 
 export const projects = [
   {
-    title: "Janki Prefab System",
-    description: "An advanced full-stack business website for a prefab manufacturing company, featuring enquiry forms, JWT login, admin management, and a dynamic product catalog.",
-    tags: ["React", "Django", "PostgreSQL", "TailwindCSS"],
+    title: "Prefab Construction Business Website",
+    description:
+      "A conversion-focused business website built to handle real client enquiries, showcase prefab solutions, and streamline lead management through a custom admin panel.",
+    tags: ["Service Business", "Lead Generation", "Full Stack"],
     image: "/projects/JPS.png",
     link: "https://youtu.be/TymHFBSLIME",
-    category: 'Full Stack',
+    category: "Freelance",
   },
+
+  {
+    title: "Real Estate Business Website",
+    description:
+      "A modern real estate website designed to highlight property listings, build trust, and capture qualified buyer and seller enquiries through clear call-to-actions.",
+    tags: ["Real Estate", "Lead Generation", "Frontend"],
+    image: "/projects/real-estate.png",
+    link: "https://premium-real-estate-one.vercel.app/",
+    category: "Service Websites",
+  },
+
+  {
+    title: "Agency Business Website",
+    description:
+      "A clean and professional agency website built to communicate services clearly, improve brand credibility, and drive inbound client enquiries.",
+    tags: ["Agency Website", "Business Presence", "Frontend"],
+    image: "/projects/CMO.png",
+    link: "https://cultureofmarketing.com/",
+    category: "Service Websites",
+  },
+
+  {
+    title: "Video Editor Portfolio",
+    description:
+      "A personal portfolio website designed to showcase video work, build professional credibility, and help a freelance editor attract new clients.",
+    tags: ["Personal Brand", "Portfolio", "Frontend"],
+    image: "/projects/Manish.png",
+    link: "https://portfolio-manish-coral.vercel.app/",
+    category: "Freelance",
+  },
+
   {
     title: "Task Management System",
-    description: "A full-stack task management application featuring secure user authentication, a dynamic dashboard with data visualization charts to track productivity, and automated task reminders.",
-    tags: ["React", "JavaScript", "TailwindCSS", "Django"],
+    description:
+      "A productivity-focused web application built to help users organize tasks, track progress visually, and manage daily workflows efficiently.",
+    tags: ["Web Application", "Dashboard", "Full Stack"],
     image: "/projects/to-do.png",
     link: "https://smart-todo-react.vercel.app/",
-    category: 'Full Stack',
+    category: "Web Applications",
   },
+
   {
-    title: "Portfolio Website",
-    description: "A personal portfolio showcasing my projects, skills, and experience with a modern and interactive UI design.",
-    tags: ["Html", "CSS", "JavaScript"],
-    image: "/projects/Portfolio.png",
-    link: "https://rohit-dhyani-portfolio.netlify.app/",
-    category: 'Frontend',
+    title: "Portfolio Website – Editor",
+    description:
+      "A minimal personal portfolio created to present work, skills, and experience with a clean layout and smooth user experience.",
+    tags: ["Personal Portfolio", "UI Design", "Frontend"],
+    image: "/projects/Rudra.png",
+    link: "https://portfolio-rudra-mu.vercel.app/",
+    category: "Freelance",
   },
-  {
-    title: "Automated Resume Relevance Check System",
-    description: "A machine learning-based application that evaluates resumes against job descriptions, providing automated and consistent relevance scoring.",
-    tags: ["Streamlit", "Python"],
-    image: "/projects/Automated.png",
-    link: "https://youtu.be/UxRXtkNF4JM",
-    category: 'Full Stack',
-  },
-  {
-    title: "Employee Management System",
-    description: "A frontend application for managing employees with features like adding, editing, and deleting employee records.",
-    tags: ["React", "TailwindCSS"],
-    image: "/projects/EMS.png",
-    link: "https://github.com/rohit1221330/Employee-Management-System",
-    category: 'Frontend',
-  },
- 
 ];
+
+// {
+//   title: "Automated Resume Relevance Check System",
+//   description: "A machine learning-based application that evaluates resumes against job descriptions, providing automated and consistent relevance scoring.",
+//   tags: ["Streamlit", "Python"],
+//   image: "/projects/Automated.png",
+//   link: "https://youtu.be/UxRXtkNF4JM",
+//   category: 'Full Stack',
+// },
+// {
+//   title: "Employee Management System",
+//   description: "A frontend application for managing employees with features like adding, editing, and deleting employee records.",
+//   tags: ["React", "TailwindCSS"],
+//   image: "/projects/EMS.png",
+//   link: "https://github.com/rohit1221330/Employee-Management-System",
+//   category: 'Frontend',
+// },
 
 
 export const skills = [
