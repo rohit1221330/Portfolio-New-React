@@ -197,8 +197,8 @@ const Navbar = () => {
             >
               <div className="flex flex-col items-center gap-2">
                 <p className="text-xs tracking-widest text-gray-500 uppercase">Available for Freelance</p>
-                <a href="mailto:your-email@example.com" className="text-white transition-colors hover:text-purple-400">
-                  your-email@example.com
+                <a href="mailto:rohitdhyani50@gmail.com" className="text-white transition-colors hover:text-purple-400">
+                  rohitdhyani50@gmail.com
                 </a>
               </div>
             </motion.div>
