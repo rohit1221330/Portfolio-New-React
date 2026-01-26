@@ -4,11 +4,14 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { TypeAnimation } from "react-type-animation";
+import HeroBackground from '../components/HeroBackground';
 
 const Hero = () => {
   return (
     <section className="relative flex flex-col items-center justify-center w-full min-h-screen pt-32 pb-20 overflow-hidden font-sans bg-[#050508]">
 
+{/* BACKGROUND COMPONENT */}
+      <HeroBackground />
       {/* ====================================================
           BACKGROUND ATMOSPHERE (Enhanced)
       ==================================================== */}
