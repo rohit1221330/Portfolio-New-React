@@ -43,7 +43,7 @@ const About = () => {
 
             {/* Image */}
             <img
-              src="/Rohit.png"  // APNI PHOTO KA PATH
+              src="public\New .jpeg"  // APNI PHOTO KA PATH
               alt="Profile"
               className="object-cover w-full h-full transition-all duration-700 grayscale group-hover:grayscale-0"
             />
